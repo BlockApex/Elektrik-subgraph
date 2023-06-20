@@ -16,7 +16,7 @@ export let WHITELIST_TOKENS: string[] = [
   '<USDT>', // USDT
   '<WBTC>', // WBTC
   '<ARB>', // ARB
-  '<OP>', // A
+  '<OP>', // OP
   '<UNI>', // UNI
   // '0x57ab1ec28d129707052df4df418d58a2d46d5f51', // sUSD
   // '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2', // MKR
