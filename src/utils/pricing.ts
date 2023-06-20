@@ -14,7 +14,6 @@ export let WHITELIST_TOKENS: string[] = [
   '<DAI>', // DAI
   '<USDC>', // USDC
   '<USDT>', // USDT
-  '0x0000000000085d4780b73119b644ae5ecd22b376', // TUSD
   '<WBTC>', // WBTC
   '<ARB>', // ARB
   '<OP>', // A
@@ -35,12 +34,8 @@ export let WHITELIST_TOKENS: string[] = [
 let usdc_address = ''
 
 let STABLE_COINS: string[] = [
-  // '0x6b175474e89094c44da98b954eedeac495271d0f',
-  // '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-  // '0xdac17f958d2ee523a2206206994597c13d831ec7',
-  // '0x0000000000085d4780b73119b644ae5ecd22b376',
-  // '0x956f47f50a910163d8bf957cf5846d573e7f87ca',
-  // '0x4dd28568d05f09b02220b09c2cb307bfd837cb95'
+  '<DAI>', // DAI
+  '<USDT>', // USDT
   usdc_address
 ]
 
