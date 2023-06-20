@@ -11,14 +11,14 @@ const USDC_WETH_03_POOL = 'POOL'
 // usually tokens that many tokens are paired with s
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
-   '<DAI>', // DAI
-   '<USDC>', // USDC
-   '<USDT>', // USDT
-   '0x0000000000085d4780b73119b644ae5ecd22b376', // TUSD
-   '<WBTC>', // WBTC
-   <'ARB'>, // ARB
-   <'OP'>, // A
-   '<UNI>', // UNI
+  '<DAI>', // DAI
+  '<USDC>', // USDC
+  '<USDT>', // USDT
+  '0x0000000000085d4780b73119b644ae5ecd22b376', // TUSD
+  '<WBTC>', // WBTC
+  '<ARB>', // ARB
+  '<OP>', // A
+  '<UNI>', // UNI
   // '0x57ab1ec28d129707052df4df418d58a2d46d5f51', // sUSD
   // '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2', // MKR
   // '0xc00e94cb662c3520282e6f5717214004a7f26888', // COMP
@@ -28,7 +28,7 @@ export let WHITELIST_TOKENS: string[] = [
   // '0x111111111117dc0aa78b770fa6a738034120c302', // 1INCH
   // '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8', // yCurv
   // '0x956f47f50a910163d8bf957cf5846d573e7f87ca', // FEI
-   '<MATIC>', // MATIC
+  '<MATIC>' // MATIC
   // '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9', // AAVE
   // '0xfe2e637202056d30016725477c5da089ab0a043a' // sETH2
 ]
