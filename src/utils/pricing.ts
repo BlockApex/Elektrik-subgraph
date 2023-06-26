@@ -4,27 +4,27 @@ import { Bundle, Pool, Token } from './../types/schema'
 import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
-const WETH_ADDRESS = ''
-const USDC_WETH_03_POOL = 'POOL'
+const WETH_ADDRESS = '0xF42991f02C07AB66cFEa282E7E482382aEB85461'
+const USDC_WETH_03_POOL = '0xFdeE88e106a76c657b181756920d0c91d925bb17'
 
 // token where amounts should contribute to tracked volume and liquidity
 // usually tokens that many tokens are paired with s
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
-  '<DAI>', // DAI
-  '<USDC>', // USDC
-  '<USDT>', // USDT
-  '<WBTC>', // WBTC
-  '<ARB>', // ARB
-  '<OP>', // OP
-  '<UNI>', // UNI
-  '<MATIC>' // MATIC
+  '0x4B6b9B31c72836806B0B1104Cf1CdAB8A0E3BD66', // DAI
+  '0x3cf2c147d43C98Fa96d267572e3FD44A4D3940d4', // USDC
+  '0x057e8e2bC40ECff87e6F9b28750D5E7AC004Eab9', // USDT
+  '0x9Ee1Aa18F3FEB435f811d6AE2F71B7D2a4Adce0B', // WBTC
+  '0x124ABC63F20c6e2088078bd61e2Db100Ff30836e', // ARB
+  '0xecf6Bdde77C77863Ae842b145f9ab296E5eAcAF9', // OP
+  '0x8488c316e23504B8554e4BdE9651802CD45aea24', // UNI
+  '0x8bA5b0452b0a4da211579AA2e105c3da7C0Ad36c' // MATIC
 ]
-let usdc_address = ''
+let usdc_address = '0x3cf2c147d43C98Fa96d267572e3FD44A4D3940d4'
 
 let STABLE_COINS: string[] = [
-  '<DAI>', // DAI
-  '<USDT>', // USDT
+  '0x4B6b9B31c72836806B0B1104Cf1CdAB8A0E3BD66', // DAI
+  '0x057e8e2bC40ECff87e6F9b28750D5E7AC004Eab9', // USDT
   usdc_address
 ]
 

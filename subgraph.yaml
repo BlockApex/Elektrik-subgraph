@@ -13,9 +13,9 @@ dataSources:
     name: Factory
     network: mainnet
     source:
-      address: 'FACTORYADDRESS'
+      address: '0x96bc3d096647ed9C3F206445afc1CAeED640dbdc'
       abi: Factory
-      startBlock: 0
+      startBlock: 28366983
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -42,9 +42,9 @@ dataSources:
     name: NonfungiblePositionManager
     network: mainnet
     source:
-      address: 'NONFUNGIBLEADDRESS'
+      address: '0x1bE38977300a4077e1d632467782017b452971d8'
       abi: NonfungiblePositionManager
-      startBlock: 0
+      startBlock: 28366983
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
