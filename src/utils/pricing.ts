@@ -60,6 +60,8 @@ export function findEthPerToken(token: Token): BigDecimal {
 
   // hardcoded fix for incorrect rates
   // if whitelist includes token - get the safe price
+   //stable token /x usd/ 1 eth
+   //this gives us how one unit of token x equals y units of eth
   if (STABLE_COINS.includes(token.id)) {
     priceSoFar = safeDiv(ONE_BD, bundle.ethPriceUSD)
   } else {
@@ -72,6 +74,8 @@ export function findEthPerToken(token: Token): BigDecimal {
           // whitelist token is token1
           let token1 = Token.load(pool.token1)
           // get the derived ETH in pool
+          //get the amount of whitelisted token locked
+          //rn usdc or eth
           let ethLocked = pool.totalValueLockedToken1.times(token1.derivedETH)
           if (ethLocked.gt(largestLiquidityETH) && ethLocked.gt(MINIMUM_ETH_LOCKED)) {
             largestLiquidityETH = ethLocked
