@@ -4,29 +4,19 @@ import { Bundle, Pool, Token } from './../types/schema'
 import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
-const WETH_ADDRESS = '0xf42991f02c07ab66cfea282e7e482382aeb85461';
-const USDC_WETH_03_POOL = '0x0df6b100fafc4236993e93e7140584887b7de54e';
-let usdc_address = '0x3cf2c147d43c98fa96d267572e3fd44a4d3940d4';
+const WETH_ADDRESS = '0xf42991f02c07ab66cfea282e7e482382aeb85461'
+const USDC_WETH_03_POOL = '0x0df6b100fafc4236993e93e7140584887b7de54e'
+let usdc_address = '0x3cf2c147d43c98fa96d267572e3fd44a4d3940d4'
 
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
-  '0x4b6b9b31c72836806b0b1104cf1cdab8a0e3bd66', // DAI
-  '0x3cf2c147d43c98fa96d267572e3fd44a4d3940d4', // USDC
-  '0x057e8e2bc40ecff87e6f9b28750d5e7ac004eab9', // USDT
-  '0x9ee1aa18f3feb435f811d6ae2f71b7d2a4adce0b', // WBTC
-  '0x124abc63f20c6e2088078bd61e2db100ff30836e', // ARB
-  '0xecf6bdde77c77863ae842b145f9ab296e5eacaf9', // OP
-  '0x8488c316e23504b8554e4bde9651802cd45aea24', // UNI
-  '0x8ba5b0452b0a4da211579aa2e105c3da7c0ad36c', // MATIC
+
   usdc_address // USDC
-];
+]
 
 let STABLE_COINS: string[] = [
-  '0x4b6b9b31c72836806b0b1104cf1cdab8a0e3bd66', // DAI
-  '0x057e8e2bc40ecff87e6f9b28750d5e7ac004eab9', // USDT
   usdc_address //USDC
-];
-
+]
 
 let MINIMUM_ETH_LOCKED = BigDecimal.fromString('1')
 
