@@ -4,9 +4,9 @@ import { Bundle, Pool, Token } from './../types/schema'
 import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
-const WETH_ADDRESS = '0xf42991f02c07ab66cfea282e7e482382aeb85461'
-const USDC_WETH_03_POOL = '0x0df6b100fafc4236993e93e7140584887b7de54e'
-let usdc_address = '0x3cf2c147d43c98fa96d267572e3fd44a4d3940d4'
+const WETH_ADDRESS = '0x7ebef2a4b1b09381ec5b9df8c5c6f2dbeca59c73'
+const USDC_WETH_03_POOL = '0x9dfe7eaba6e093203ee3072da3596ed043b7fdfd'
+let usdc_address = '0x18fb38404dadee1727be4b805c5b242b5413fa40'
 
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
