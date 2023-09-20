@@ -60,8 +60,8 @@ export function findEthPerToken(token: Token): BigDecimal {
 
   // hardcoded fix for incorrect rates
   // if whitelist includes token - get the safe price
-   //stable token /x usd/ 1 eth
-   //this gives us how one unit of token x equals y units of eth
+  //stable token /x usd/ 1 eth
+  //this gives us how one unit of token x equals y units of eth
   if (STABLE_COINS.includes(token.id)) {
     priceSoFar = safeDiv(ONE_BD, bundle.ethPriceUSD)
   } else {
