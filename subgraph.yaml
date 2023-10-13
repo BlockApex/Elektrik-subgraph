@@ -13,12 +13,12 @@ dataSources:
     name: Factory
     network: mainnet
     source:
-      address: '0x25cAA89d894849E946103563DACB2E4c77662C77'
+      address: '0xEE6099234bbdC793a43676D98Eb6B589ca7112D7'
       abi: Factory
-      startBlock: 38494500
+      startBlock: 43063098
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/mappings/factory.ts
       entities:
@@ -42,12 +42,12 @@ dataSources:
     name: NonfungiblePositionManager
     network: mainnet
     source:
-      address: '0x8BB1E015C67cAA0A7AFa6245d392c66BF3EAc55a'
+      address: '0x30d454297f03Fb638855A8C8559Ac0a745708ABf'
       abi: NonfungiblePositionManager
-      startBlock: 38494500
+      startBlock: 43063098
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/mappings/position-manager.ts
       entities:
@@ -80,7 +80,7 @@ templates:
       abi: Pool
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:

@@ -5,7 +5,7 @@ import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
 
 const WETH_ADDRESS = '0x7ebef2a4b1b09381ec5b9df8c5c6f2dbeca59c73'
-const USDC_WETH_03_POOL = '0x9dfe7eaba6e093203ee3072da3596ed043b7fdfd'
+const USDC_WETH_03_POOL = '0x90b48ed3d50df288a5b7af2d8696aa11e7be58fc'
 let usdc_address = '0x18fb38404dadee1727be4b805c5b242b5413fa40'
 
 export let WHITELIST_TOKENS: string[] = [
