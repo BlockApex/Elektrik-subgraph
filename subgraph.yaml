@@ -15,7 +15,7 @@ dataSources:
     source:
       address: '0xEE6099234bbdC793a43676D98Eb6B589ca7112D7'
       abi: Factory
-      startBlock: 43063098
+      startBlock: 42968675
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -44,7 +44,7 @@ dataSources:
     source:
       address: '0x30d454297f03Fb638855A8C8559Ac0a745708ABf'
       abi: NonfungiblePositionManager
-      startBlock: 43063098
+      startBlock: 42968858
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -94,7 +94,7 @@ templates:
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
-      #this is called for the pool event initialize
+        #this is called for the pool event initialize
         - event: Initialize(uint160,int24)
           handler: handleInitialize
         - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
