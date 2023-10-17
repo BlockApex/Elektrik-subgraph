@@ -13,12 +13,12 @@ dataSources:
     name: Factory
     network: mainnet
     source:
-      address: '0xEE6099234bbdC793a43676D98Eb6B589ca7112D7'
+      address: '0x7A5531FC6628e55f22ED2C6AD015B75948fC36F4'
       abi: Factory
-      startBlock: 42968674
+      startBlock: 43253318
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/factory.ts
       entities:
@@ -42,12 +42,12 @@ dataSources:
     name: NonfungiblePositionManager
     network: mainnet
     source:
-      address: '0x30d454297f03Fb638855A8C8559Ac0a745708ABf'
+      address: '0x5cc8dcb7a2391d07043E5746b55CB1637a67ddf1'
       abi: NonfungiblePositionManager
-      startBlock: 42968674
+      startBlock: 43253318
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/position-manager.ts
       entities:
@@ -80,7 +80,7 @@ templates:
       abi: Pool
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:
@@ -94,7 +94,7 @@ templates:
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
-        #this is called for the pool event initialize
+      #this is called for the pool event initialize
         - event: Initialize(uint160,int24)
           handler: handleInitialize
         - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
