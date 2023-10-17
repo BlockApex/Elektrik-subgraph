@@ -11,10 +11,12 @@ import {
   Bundle,
   PoolHourData,
   TickDayData,
-  Tick
+  Tick,
+  PairMinOHLC,
+  PairHourOHLC
 } from './../types/schema'
 import { FACTORY_ADDRESS } from './constants'
-import { ethereum } from '@graphprotocol/graph-ts'
+import { Address, BigDecimal, ethereum } from '@graphprotocol/graph-ts'
 
 /**
  * Tracks global aggregate data over daily windows
@@ -250,4 +252,90 @@ export function updateTickDayData(tick: Tick, event: ethereum.Event): TickDayDat
   tickDayData.save()
 
   return tickDayData as TickDayData
+}
+export function updatePairMinData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): PairMinOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let minIndex = timestamp / 60 // get unique hour within unix history
+  let minStartUnix = minIndex * 60 // want the rounded effect
+  let tokenMinID = token0
+    .toString()
+    .concat('-')
+    .concat(token1.toString())
+    .concat('-')
+    .concat(minIndex.toString())
+  let pairMinData = PairMinOHLC.load(tokenMinID)
+  let price = amount0.div(amount1)
+  if (pairMinData === null) {
+    pairMinData = new PairMinOHLC(tokenMinID)
+    pairMinData.token0 = token0
+    pairMinData.token1 = token1
+    pairMinData.periodStartUnix = minStartUnix
+    pairMinData.open = price
+    pairMinData.high = price
+    pairMinData.low = price
+    pairMinData.close = price
+  }
+
+  if (price.gt(pairMinData.high)) {
+    pairMinData.high = price
+  }
+
+  if (price.lt(pairMinData.low)) {
+    pairMinData.low = price
+  }
+
+  pairMinData.close = price
+
+  pairMinData.save()
+
+  return pairMinData as PairMinOHLC
+}
+export function updatePairHourData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): PairHourOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let minIndex = timestamp / 3600 // get unique hour within unix history
+  let minStartUnix = minIndex * 3600 // want the rounded effect
+  let tokenHourID = token0
+    .toString()
+    .concat('-')
+    .concat(token1.toString())
+    .concat('-')
+    .concat(minIndex.toString())
+  let pairHourData = PairHourOHLC.load(tokenHourID)
+  let price = amount0.div(amount1)
+  if (pairHourData === null) {
+    pairHourData = new PairHourOHLC(tokenHourID)
+    pairHourData.token0 = token0
+    pairHourData.token1 = token1
+    pairHourData.periodStartUnix = minStartUnix
+    pairHourData.open = price
+    pairHourData.high = price
+    pairHourData.low = price
+    pairHourData.close = price
+  }
+
+  if (price.gt(pairHourData.high)) {
+    pairHourData.high = price
+  }
+
+  if (price.lt(pairHourData.low)) {
+    pairHourData.low = price
+  }
+
+  pairHourData.close = price
+
+  pairHourData.save()
+
+  return pairHourData as PairHourOHLC
 }

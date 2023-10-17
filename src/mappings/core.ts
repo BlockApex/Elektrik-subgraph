@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
 import { Bundle, Burn, Factory, Mint, Pool, Swap, Tick, Token } from '../types/schema'
 import { Pool as PoolABI } from '../types/Factory/Pool'
-import { BigDecimal, BigInt, ethereum } from '@graphprotocol/graph-ts'
+import { Address, BigDecimal, BigInt, ethereum } from '@graphprotocol/graph-ts'
 import {
   Burn as BurnEvent,
   Flash as FlashEvent,
@@ -13,6 +13,8 @@ import { convertTokenToDecimal, loadTransaction, safeDiv } from '../utils'
 import { FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI } from '../utils/constants'
 import { findEthPerToken, getEthPriceInUSD, getTrackedAmountUSD, sqrtPriceX96ToTokenPrices } from '../utils/pricing'
 import {
+  updatePairHourData,
+  updatePairMinData,
   updatePoolDayData,
   updatePoolHourData,
   updateTickDayData,
@@ -413,7 +415,10 @@ export function handleSwap(event: SwapEvent): void {
   let token1DayData = updateTokenDayData(token1 as Token, event)
   let token0HourData = updateTokenHourData(token0 as Token, event)
   let token1HourData = updateTokenHourData(token1 as Token, event)
-
+  updatePairMinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+  updatePairMinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+  updatePairHourData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+  updatePairHourData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
   // update volume metrics
   uniswapDayData.volumeETH = uniswapDayData.volumeETH.plus(amountTotalETHTracked)
   uniswapDayData.volumeUSD = uniswapDayData.volumeUSD.plus(amountTotalUSDTracked)

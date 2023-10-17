@@ -651,3 +651,33 @@ type TokenHourData @entity {
   # close price USD
   close: BigDecimal!
 }
+type PairMinOHLC @entity {
+  # concat-token0-token1-mintimestamp address
+  id: ID!
+  # timestamp rounded to current day by dividing by 60
+  periodStartUnix: Int!
+  token0: Bytes!
+  token1: Bytes!
+  open: BigDecimal!
+  # high price USD
+  high: BigDecimal!
+  # low price USD
+  low: BigDecimal!
+  # close price USD
+  close: BigDecimal!
+}
+type PairHourOHLC @entity {
+  # concat-token0-token1-mintimestamp address
+  id: ID!
+  # timestamp rounded to current day by dividing by 86400
+  periodStartUnix: Int!
+  token0: Bytes!
+  token1: Bytes!
+  open: BigDecimal!
+  # high price USD
+  high: BigDecimal!
+  # low price USD
+  low: BigDecimal!
+  # close price USD
+  close: BigDecimal!
+}
