@@ -13,7 +13,11 @@ import {
   TickDayData,
   Tick,
   PairMinOHLC,
-  PairHourOHLC
+  PairHourOHLC,
+  PairDayOHLC,
+  PairMonthOHLC,
+  PairYearOHLC,
+  Pair5MinOHLC
 } from './../types/schema'
 import { FACTORY_ADDRESS } from './constants'
 import { Address, BigDecimal, ethereum } from '@graphprotocol/graph-ts'
@@ -264,9 +268,9 @@ export function updatePairMinData(
   let minIndex = timestamp / 60 // get unique hour within unix history
   let minStartUnix = minIndex * 60 // want the rounded effect
   let tokenMinID = token0
-    .toString()
+    .toHexString()
     .concat('-')
-    .concat(token1.toString())
+    .concat(token1.toHexString())
     .concat('-')
     .concat(minIndex.toString())
   let pairMinData = PairMinOHLC.load(tokenMinID)
@@ -296,6 +300,49 @@ export function updatePairMinData(
 
   return pairMinData as PairMinOHLC
 }
+export function updatePair5MinData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): Pair5MinOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let min5Index = timestamp / 300 // get unique hour within unix history
+  let min5StartUnix = min5Index * 300 // want the rounded effect
+  let token5MinID = token0
+    .toHexString()
+    .concat('-')
+    .concat(token1.toHexString())
+    .concat('-')
+    .concat(min5Index.toString())
+  let pair5MinData = Pair5MinOHLC.load(token5MinID)
+  let price = amount0.div(amount1)
+  if (pair5MinData === null) {
+    pair5MinData = new Pair5MinOHLC(token5MinID)
+    pair5MinData.token0 = token0
+    pair5MinData.token1 = token1
+    pair5MinData.periodStartUnix = min5StartUnix
+    pair5MinData.open = price
+    pair5MinData.high = price
+    pair5MinData.low = price
+    pair5MinData.close = price
+  }
+
+  if (price.gt(pair5MinData.high)) {
+    pair5MinData.high = price
+  }
+
+  if (price.lt(pair5MinData.low)) {
+    pair5MinData.low = price
+  }
+
+  pair5MinData.close = price
+
+  pair5MinData.save()
+
+  return pair5MinData as Pair5MinOHLC
+}
 export function updatePairHourData(
   token0: Address,
   token1: Address,
@@ -307,9 +354,9 @@ export function updatePairHourData(
   let minIndex = timestamp / 3600 // get unique hour within unix history
   let minStartUnix = minIndex * 3600 // want the rounded effect
   let tokenHourID = token0
-    .toString()
+    .toHexString()
     .concat('-')
-    .concat(token1.toString())
+    .concat(token1.toHexString())
     .concat('-')
     .concat(minIndex.toString())
   let pairHourData = PairHourOHLC.load(tokenHourID)
@@ -338,4 +385,133 @@ export function updatePairHourData(
   pairHourData.save()
 
   return pairHourData as PairHourOHLC
+}
+export function updatePairDayData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): PairDayOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let minIndex = timestamp / 86400 // get unique hour within unix history
+  let minStartUnix = minIndex * 86400 // want the rounded effect
+  let tokenDayID = token0
+    .toHexString()
+    .concat('-')
+    .concat(token1.toHexString())
+    .concat('-')
+    .concat(minIndex.toString())
+  let pairDayData = PairDayOHLC.load(tokenDayID)
+  let price = amount0.div(amount1)
+  if (pairDayData === null) {
+    pairDayData = new PairDayOHLC(tokenDayID)
+    pairDayData.token0 = token0
+    pairDayData.token1 = token1
+    pairDayData.periodStartUnix = minStartUnix
+    pairDayData.open = price
+    pairDayData.high = price
+    pairDayData.low = price
+    pairDayData.close = price
+  }
+
+  if (price.gt(pairDayData.high)) {
+    pairDayData.high = price
+  }
+
+  if (price.lt(pairDayData.low)) {
+    pairDayData.low = price
+  }
+
+  pairDayData.close = price
+
+  pairDayData.save()
+
+  return pairDayData as PairDayOHLC
+}
+export function updatePairMonthData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): PairMonthOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let minIndex = timestamp / 2592000 // get unique hour within unix history
+  let minStartUnix = minIndex * 2592000 // want the rounded effect
+  let tokenMonthID = token0
+    .toHexString()
+    .concat('-')
+    .concat(token1.toHexString())
+    .concat('-')
+    .concat(minIndex.toString())
+  let pairMonthData = PairMonthOHLC.load(tokenMonthID)
+  let price = amount0.div(amount1)
+  if (pairMonthData === null) {
+    pairMonthData = new PairMonthOHLC(tokenMonthID)
+    pairMonthData.token0 = token0
+    pairMonthData.token1 = token1
+    pairMonthData.periodStartUnix = minStartUnix
+    pairMonthData.open = price
+    pairMonthData.high = price
+    pairMonthData.low = price
+    pairMonthData.close = price
+  }
+
+  if (price.gt(pairMonthData.high)) {
+    pairMonthData.high = price
+  }
+
+  if (price.lt(pairMonthData.low)) {
+    pairMonthData.low = price
+  }
+
+  pairMonthData.close = price
+
+  pairMonthData.save()
+
+  return pairMonthData as PairMonthOHLC
+}
+export function updatePairYearData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): PairYearOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let minIndex = timestamp / 31536000 // get unique hour within unix history
+  let minStartUnix = minIndex * 31536000 // want the rounded effect
+  let tokenYearID = token0
+    .toHexString()
+    .concat('-')
+    .concat(token1.toHexString())
+    .concat('-')
+    .concat(minIndex.toString())
+  let pairYearData = PairYearOHLC.load(tokenYearID)
+  let price = amount0.div(amount1)
+  if (pairYearData === null) {
+    pairYearData = new PairYearOHLC(tokenYearID)
+    pairYearData.token0 = token0
+    pairYearData.token1 = token1
+    pairYearData.periodStartUnix = minStartUnix
+    pairYearData.open = price
+    pairYearData.high = price
+    pairYearData.low = price
+    pairYearData.close = price
+  }
+
+  if (price.gt(pairYearData.high)) {
+    pairYearData.high = price
+  }
+
+  if (price.lt(pairYearData.low)) {
+    pairYearData.low = price
+  }
+
+  pairYearData.close = price
+
+  pairYearData.save()
+
+  return pairYearData as PairYearOHLC
 }

@@ -666,10 +666,70 @@ type PairMinOHLC @entity {
   # close price USD
   close: BigDecimal!
 }
+type Pair5MinOHLC @entity {
+  # concat-token0-token1-mintimestamp address
+  id: ID!
+  # timestamp rounded to current day by dividing by 300
+  periodStartUnix: Int!
+  token0: Bytes!
+  token1: Bytes!
+  open: BigDecimal!
+  # high price USD
+  high: BigDecimal!
+  # low price USD
+  low: BigDecimal!
+  # close price USD
+  close: BigDecimal!
+}
 type PairHourOHLC @entity {
   # concat-token0-token1-mintimestamp address
   id: ID!
+  # timestamp rounded to current day by dividing by 3600
+  periodStartUnix: Int!
+  token0: Bytes!
+  token1: Bytes!
+  open: BigDecimal!
+  # high price USD
+  high: BigDecimal!
+  # low price USD
+  low: BigDecimal!
+  # close price USD
+  close: BigDecimal!
+}
+type PairDayOHLC @entity {
+  # concat-token0-token1-mintimestamp address
+  id: ID!
   # timestamp rounded to current day by dividing by 86400
+  periodStartUnix: Int!
+  token0: Bytes!
+  token1: Bytes!
+  open: BigDecimal!
+  # high price USD
+  high: BigDecimal!
+  # low price USD
+  low: BigDecimal!
+  # close price USD
+  close: BigDecimal!
+}
+type PairMonthOHLC @entity {
+  # concat-token0-token1-mintimestamp address
+  id: ID!
+  # timestamp rounded to current day by dividing by 2592000
+  periodStartUnix: Int!
+  token0: Bytes!
+  token1: Bytes!
+  open: BigDecimal!
+  # high price USD
+  high: BigDecimal!
+  # low price USD
+  low: BigDecimal!
+  # close price USD
+  close: BigDecimal!
+}
+type PairYearOHLC @entity {
+  # concat-token0-token1-mintimestamp address
+  id: ID!
+  # timestamp rounded to current day by dividing by 31536000
   periodStartUnix: Int!
   token0: Bytes!
   token1: Bytes!
