@@ -13,8 +13,12 @@ import { convertTokenToDecimal, loadTransaction, safeDiv } from '../utils'
 import { FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI } from '../utils/constants'
 import { findEthPerToken, getEthPriceInUSD, getTrackedAmountUSD, sqrtPriceX96ToTokenPrices } from '../utils/pricing'
 import {
+  updatePair5MinData,
+  updatePairDayData,
   updatePairHourData,
   updatePairMinData,
+  updatePairMonthData,
+  updatePairYearData,
   updatePoolDayData,
   updatePoolHourData,
   updateTickDayData,
@@ -417,8 +421,17 @@ export function handleSwap(event: SwapEvent): void {
   let token1HourData = updateTokenHourData(token1 as Token, event)
   updatePairMinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
   updatePairMinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+  updatePair5MinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+  updatePair5MinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
   updatePairHourData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
   updatePairHourData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+  updatePairDayData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+  updatePairDayData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+  updatePairMonthData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+  updatePairMonthData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+  updatePairYearData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+  updatePairYearData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+ 
   // update volume metrics
   uniswapDayData.volumeETH = uniswapDayData.volumeETH.plus(amountTotalETHTracked)
   uniswapDayData.volumeUSD = uniswapDayData.volumeUSD.plus(amountTotalUSDTracked)
