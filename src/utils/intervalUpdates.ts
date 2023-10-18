@@ -264,9 +264,9 @@ export function updatePairMinData(
   let minIndex = timestamp / 60 // get unique hour within unix history
   let minStartUnix = minIndex * 60 // want the rounded effect
   let tokenMinID = token0
-    .toString()
+    .toHexString()
     .concat('-')
-    .concat(token1.toString())
+    .concat(token1.toHexString())
     .concat('-')
     .concat(minIndex.toString())
   let pairMinData = PairMinOHLC.load(tokenMinID)
@@ -307,9 +307,9 @@ export function updatePairHourData(
   let minIndex = timestamp / 3600 // get unique hour within unix history
   let minStartUnix = minIndex * 3600 // want the rounded effect
   let tokenHourID = token0
-    .toString()
+    .toHexString()
     .concat('-')
-    .concat(token1.toString())
+    .concat(token1.toHexString())
     .concat('-')
     .concat(minIndex.toString())
   let pairHourData = PairHourOHLC.load(tokenHourID)
