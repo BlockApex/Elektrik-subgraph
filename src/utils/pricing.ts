@@ -3,7 +3,7 @@ import { ONE_BD, ZERO_BD, ZERO_BI } from './constants'
 import { Bundle, Pool, Token } from './../types/schema'
 import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
-
+//all address here should be lowercase
 const WETH_ADDRESS = '0x7ebef2a4b1b09381ec5b9df8c5c6f2dbeca59c73'
 const USDC_WETH_03_POOL = '0x90b48ed3d50df288a5b7af2d8696aa11e7be58fc'
 let usdc_address = '0x18fb38404dadee1727be4b805c5b242b5413fa40'
