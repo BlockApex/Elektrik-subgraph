@@ -7,6 +7,7 @@ import { exponentToBigDecimal, safeDiv } from '../utils/index'
 const WETH_ADDRESS = '0x7ebef2a4b1b09381ec5b9df8c5c6f2dbeca59c73'
 const USDC_WETH_03_POOL = '0x90b48ed3d50df288a5b7af2d8696aa11e7be58fc'
 let usdc_address = '0x18fb38404dadee1727be4b805c5b242b5413fa40'
+let usdt_address = '0x6308fa9545126237158778e74ae1b6b89022c5c0'
 
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
@@ -15,7 +16,8 @@ export let WHITELIST_TOKENS: string[] = [
 ]
 
 let STABLE_COINS: string[] = [
-  usdc_address //USDC
+  usdc_address, //USDC,
+  usdt_address //USDT
 ]
 
 let MINIMUM_ETH_LOCKED = BigDecimal.fromString('1')
