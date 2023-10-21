@@ -1,7 +1,7 @@
-# Uniswap V3 Subgraph
+# Elektrik V1 Subgraph
 
 ### Subgraph Endpoint 
 
-Synced at: https://thegraph.com/hosted-service/subgraph/ianlapham/uniswap-v3-subgraph?selected=playground
+Synced at: https://subgraph.elektrik.network/subgraphs/name/ELEKTRIK-GRAPH/graphql 
 
 Pending Changes at same URL
