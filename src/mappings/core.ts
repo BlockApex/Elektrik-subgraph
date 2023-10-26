@@ -34,7 +34,7 @@ export function handleInitialize(event: Initialize): void {
   pool.sqrtPrice = event.params.sqrtPriceX96
   pool.tick = BigInt.fromI32(event.params.tick)
   pool.save()
-  
+
   // update token prices
   let token0 = Token.load(pool.token0)
   let token1 = Token.load(pool.token1)
@@ -419,19 +419,20 @@ export function handleSwap(event: SwapEvent): void {
   let token1DayData = updateTokenDayData(token1 as Token, event)
   let token0HourData = updateTokenHourData(token0 as Token, event)
   let token1HourData = updateTokenHourData(token1 as Token, event)
-  updatePairMinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
-  updatePairMinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
-  updatePair5MinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
-  updatePair5MinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
-  updatePairHourData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
-  updatePairHourData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
-  updatePairDayData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
-  updatePairDayData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
-  updatePairMonthData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
-  updatePairMonthData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
-  updatePairYearData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
-  updatePairYearData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
- 
+  if (amount0Abs.notEqual(ZERO_BD) && amount1Abs.notEqual(ZERO_BD)) {
+    updatePairMinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePairMinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    updatePair5MinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePair5MinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    updatePairHourData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePairHourData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    updatePairDayData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePairDayData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    updatePairMonthData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePairMonthData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    updatePairYearData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePairYearData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+  }
   // update volume metrics
   uniswapDayData.volumeETH = uniswapDayData.volumeETH.plus(amountTotalETHTracked)
   uniswapDayData.volumeUSD = uniswapDayData.volumeUSD.plus(amountTotalUSDTracked)
