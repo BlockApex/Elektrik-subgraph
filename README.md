@@ -1,7 +1,7 @@
-# Uniswap V3 Subgraph
+# Elektirk SUbgraph uni v3 base
 
 ### Subgraph Endpoint 
 
-Synced at: https://thegraph.com/hosted-service/subgraph/ianlapham/uniswap-v3-subgraph?selected=playground
+Synced at: https://subgraph.elektriktest.net/subgraphs/name/ELEKTRIK-GRAPH-OHLC-TESTNET/graphql
 
 Pending Changes at same URL
