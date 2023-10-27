@@ -4,8 +4,10 @@ repository: https://github.com/Uniswap/uniswap-v3-subgraph
 schema:
   file: ./schema.graphql
 #graft:
+#add id of testnet subgraph
 #  base: QmPrb5mvZj3ycUugZgwLWCvK93jfXfhvfjRXrFk4tRmyCX
-#  block: 14292820©r©
+#start block i want to fork off from
+#  block: gr
 features:
   - nonFatalErrors
 dataSources:
@@ -18,7 +20,7 @@ dataSources:
       startBlock: 43253450
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/mappings/factory.ts
       entities:
@@ -47,7 +49,7 @@ dataSources:
       startBlock: 43253450
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/mappings/position-manager.ts
       entities:
@@ -80,7 +82,7 @@ templates:
       abi: Pool
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:

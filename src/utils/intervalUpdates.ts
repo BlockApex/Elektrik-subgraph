@@ -11,10 +11,70 @@ import {
   Bundle,
   PoolHourData,
   TickDayData,
-  Tick
+  Tick,
+  SwapDay
 } from './../types/schema'
 import { FACTORY_ADDRESS } from './constants'
-import { ethereum } from '@graphprotocol/graph-ts'
+import { BigDecimal, ethereum } from '@graphprotocol/graph-ts'
+
+
+/**
+ * update a user daily swap data
+ */
+export function updateSwapDayDataForSwap(event: ethereum.Event,origin: String,tradeAmountUsd : BigDecimal): SwapDay {
+  // let uniswap = Factory.load(FACTORY_ADDRESS)
+  let timestamp = event.block.timestamp.toI32()
+  let dayID = timestamp / 86400 // rounded
+  let swapDayId = origin.concat("-").concat(dayID.toString())
+  let dayStartTimestamp = dayID * 86400
+  let swapDayData = SwapDay.load(swapDayId.toString())
+  if (swapDayData === null) {
+    swapDayData = new SwapDay(dayID.toString())
+    swapDayData.date = dayStartTimestamp
+    swapDayData.TradingVolumeUSD = ZERO_BD
+    swapDayData.TvlUSD = ZERO_BD
+    swapDayData.TvlFreq = 0
+  }
+  swapDayData.TradingVolumeUSD = swapDayData.TradingVolumeUSD.plus(tradeAmountUsd)
+  swapDayData.save()
+  return swapDayData as SwapDay
+}
+export function updateSwapDayDataForMint(event: ethereum.Event,origin: String,liquidityAddedUsd : BigDecimal): SwapDay {
+  // let uniswap = Factory.load(FACTORY_ADDRESS)
+  let timestamp = event.block.timestamp.toI32()
+  let dayID = timestamp / 86400 // rounded
+  let swapDayId = origin.concat("-").concat(dayID.toString())
+  let dayStartTimestamp = dayID * 86400
+  let swapDayData = SwapDay.load(swapDayId.toString())
+  if (swapDayData === null) {
+    swapDayData = new SwapDay(dayID.toString())
+    swapDayData.date = dayStartTimestamp
+    swapDayData.TradingVolumeUSD = ZERO_BD
+    swapDayData.TvlUSD = ZERO_BD
+    swapDayData.TvlFreq = 0
+  }
+  swapDayData.TvlUSD = swapDayData.TvlUSD.plus(liquidityAddedUsd)
+  swapDayData.save()
+  return swapDayData as SwapDay
+}
+export function updateSwapDayDataForBurn(event: ethereum.Event,origin: String,liquidityRemovedUsd : BigDecimal): SwapDay {
+  // let uniswap = Factory.load(FACTORY_ADDRESS)
+  let timestamp = event.block.timestamp.toI32()
+  let dayID = timestamp / 86400 // rounded
+  let swapDayId = origin.concat("-").concat(dayID.toString())
+  let dayStartTimestamp = dayID * 86400
+  let swapDayData = SwapDay.load(swapDayId.toString())
+  if (swapDayData === null) {
+    swapDayData = new SwapDay(dayID.toString())
+    swapDayData.date = dayStartTimestamp
+    swapDayData.TradingVolumeUSD = ZERO_BD
+    swapDayData.TvlUSD = ZERO_BD
+    swapDayData.TvlFreq = 0
+  }
+  swapDayData.TvlUSD = swapDayData.TvlUSD.minus(liquidityRemovedUsd)
+  swapDayData.save()
+  return swapDayData as SwapDay
+}
 
 /**
  * Tracks global aggregate data over daily windows
@@ -146,7 +206,7 @@ export function updateTokenDayData(token: Token, event: ethereum.Event): TokenDa
   let dayID = timestamp / 86400
   let dayStartTimestamp = dayID * 86400
   let tokenDayID = token.id
-    .toString()
+    .toString()x
     .concat('-')
     .concat(dayID.toString())
   let tokenPrice = token.derivedETH.times(bundle.ethPriceUSD)
