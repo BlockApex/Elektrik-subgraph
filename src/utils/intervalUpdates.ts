@@ -17,7 +17,9 @@ import {
   PairDayOHLC,
   PairMonthOHLC,
   PairYearOHLC,
-  Pair5MinOHLC
+  Pair5MinOHLC,
+  Pair15MinOHLC,
+  Pair30MinOHLC
 } from './../types/schema'
 import { FACTORY_ADDRESS } from './constants'
 import { Address, BigDecimal, ethereum } from '@graphprotocol/graph-ts'
@@ -342,6 +344,92 @@ export function updatePair5MinData(
   pair5MinData.save()
 
   return pair5MinData as Pair5MinOHLC
+}
+export function updatePair15MinData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): Pair15MinOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let min15Index = timestamp / 900 // get unique hour within unix history
+  let min15StartUnix = min15Index * 900 // want the rounded effect
+  let token15MinID = token0
+    .toHexString()
+    .concat('-')
+    .concat(token1.toHexString())
+    .concat('-')
+    .concat(min15Index.toString())
+  let pair15MinData = Pair15MinOHLC.load(token15MinID)
+  let price = amount0.div(amount1)
+  if (pair15MinData === null) {
+    pair15MinData = new Pair15MinOHLC(token15MinID)
+    pair15MinData.token0 = token0
+    pair15MinData.token1 = token1
+    pair15MinData.periodStartUnix = min15StartUnix
+    pair15MinData.open = price
+    pair15MinData.high = price
+    pair15MinData.low = price
+    pair15MinData.close = price
+  }
+
+  if (price.gt(pair15MinData.high)) {
+    pair15MinData.high = price
+  }
+
+  if (price.lt(pair15MinData.low)) {
+    pair15MinData.low = price
+  }
+
+  pair15MinData.close = price
+
+  pair15MinData.save()
+
+  return pair15MinData as Pair15MinOHLC
+}
+export function updatePair30MinData(
+  token0: Address,
+  token1: Address,
+  amount0: BigDecimal,
+  amount1: BigDecimal,
+  event: ethereum.Event
+): Pair30MinOHLC {
+  let timestamp = event.block.timestamp.toI32()
+  let min30Index = timestamp / 1800 // get unique hour within unix history
+  let min30StartUnix = min30Index * 1800 // want the rounded effect
+  let token30MinID = token0
+    .toHexString()
+    .concat('-')
+    .concat(token1.toHexString())
+    .concat('-')
+    .concat(min30Index.toString())
+  let pair30MinData = Pair30MinOHLC.load(token30MinID)
+  let price = amount0.div(amount1)
+  if (pair30MinData === null) {
+    pair30MinData = new Pair30MinOHLC(token30MinID)
+    pair30MinData.token0 = token0
+    pair30MinData.token1 = token1
+    pair30MinData.periodStartUnix = min30StartUnix
+    pair30MinData.open = price
+    pair30MinData.high = price
+    pair30MinData.low = price
+    pair30MinData.close = price
+  }
+
+  if (price.gt(pair30MinData.high)) {
+    pair30MinData.high = price
+  }
+
+  if (price.lt(pair30MinData.low)) {
+    pair30MinData.low = price
+  }
+
+  pair30MinData.close = price
+
+  pair30MinData.save()
+
+  return pair30MinData as Pair30MinOHLC
 }
 export function updatePairHourData(
   token0: Address,

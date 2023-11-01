@@ -13,6 +13,8 @@ import { convertTokenToDecimal, loadTransaction, safeDiv } from '../utils'
 import { FACTORY_ADDRESS, ONE_BI, ZERO_BD, ZERO_BI } from '../utils/constants'
 import { findEthPerToken, getEthPriceInUSD, getTrackedAmountUSD, sqrtPriceX96ToTokenPrices } from '../utils/pricing'
 import {
+  updatePair15MinData,
+  updatePair30MinData,
   updatePair5MinData,
   updatePairDayData,
   updatePairHourData,
@@ -424,6 +426,11 @@ export function handleSwap(event: SwapEvent): void {
     updatePairMinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
     updatePair5MinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
     updatePair5MinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    updatePair15MinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePair15MinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    updatePair30MinData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
+    updatePair30MinData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
+    
     updatePairHourData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
     updatePairHourData(Address.fromString(pool.token1), Address.fromString(pool.token0), amount1Abs, amount0Abs, event)
     updatePairDayData(Address.fromString(pool.token0), Address.fromString(pool.token1), amount0Abs, amount1Abs, event)
