@@ -3,22 +3,45 @@ import { ONE_BD, ZERO_BD, ZERO_BI } from './constants'
 import { Bundle, Pool, Token } from './../types/schema'
 import { BigDecimal, BigInt } from '@graphprotocol/graph-ts'
 import { exponentToBigDecimal, safeDiv } from '../utils/index'
-//all address here should be lowercase
-const WETH_ADDRESS = '0x7ebef2a4b1b09381ec5b9df8c5c6f2dbeca59c73'
-const USDC_WETH_03_POOL = '0x90b48ed3d50df288a5b7af2d8696aa11e7be58fc'
-let usdc_address = '0x18fb38404dadee1727be4b805c5b242b5413fa40'
 
+const WETH_ADDRESS = '0x7EbeF2A4b1B09381Ec5B9dF8C5c6f2dBECA59c73'
+const USDC_WETH_03_POOL = '0x90b48ed3d50df288a5b7af2d8696aa11e7be58fc'
+
+// token where amounts should contribute to tracked volume and liquidity
+// usually tokens that many tokens are paired with s
 export let WHITELIST_TOKENS: string[] = [
   WETH_ADDRESS, // WETH
-
-  usdc_address // USDC
+  '0x49F65C3FfC6e45104ff5cB00e6030C626157a90b', // DAI
+  '0x18fB38404DADeE1727Be4b805c5b242B5413Fa40', // USDC
+  '0x6308fa9545126237158778e74AE1b6b89022C5c0', // USDT
+  '0xe06FE7298243D8e47092a1E0679351f305e5f856' // BUSD
+  // '0x0000000000085d4780b73119b644ae5ecd22b376', // TUSD
+  // '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // WBTC
+  // '0x5d3a536e4d6dbd6114cc1ead35777bab948e3643', // cDAI
+  // '0x39aa39c021dfbae8fac545936693ac917d5e7563', // cUSDC
+  // '0x86fadb80d8d2cff3c3680819e4da99c10232ba0f', // EBASE
+  // '0x57ab1ec28d129707052df4df418d58a2d46d5f51', // sUSD
+  // '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2', // MKR
+  // '0xc00e94cb662c3520282e6f5717214004a7f26888', // COMP
+  // '0x514910771af9ca656af840dff83e8264ecf986ca', // LINK
+  // '0xc011a73ee8576fb46f5e1c5751ca3b9fe0af2a6f', // SNX
+  // '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e', // YFI
+  // '0x111111111117dc0aa78b770fa6a738034120c302', // 1INCH
+  // '0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8', // yCurv
+  // '0x956f47f50a910163d8bf957cf5846d573e7f87ca', // FEI
+  // '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0', // MATIC
+  // '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9', // AAVE
+  // '0xfe2e637202056d30016725477c5da089ab0a043a' // sETH2
 ]
 
 let STABLE_COINS: string[] = [
-  usdc_address //USDC
+  '0x49F65C3FfC6e45104ff5cB00e6030C626157a90b', // DAI
+  '0x18fB38404DADeE1727Be4b805c5b242B5413Fa40', // USDC
+  '0x6308fa9545126237158778e74AE1b6b89022C5c0', // USDT
+  '0xe06FE7298243D8e47092a1E0679351f305e5f856' // BUSD
 ]
 
-let MINIMUM_ETH_LOCKED = BigDecimal.fromString('1')
+let MINIMUM_ETH_LOCKED = BigDecimal.fromString('0.1')
 
 let Q192 = 2 ** 192
 export function sqrtPriceX96ToTokenPrices(sqrtPriceX96: BigInt, token0: Token, token1: Token): BigDecimal[] {
@@ -28,7 +51,7 @@ export function sqrtPriceX96ToTokenPrices(sqrtPriceX96: BigInt, token0: Token, t
     .div(denom)
     .times(exponentToBigDecimal(token0.decimals))
     .div(exponentToBigDecimal(token1.decimals))
-  //reciprocal of price 1
+
   let price0 = safeDiv(BigDecimal.fromString('1'), price1)
   return [price0, price1]
 }
@@ -60,8 +83,6 @@ export function findEthPerToken(token: Token): BigDecimal {
 
   // hardcoded fix for incorrect rates
   // if whitelist includes token - get the safe price
-  //stable token /x usd/ 1 eth
-  //this gives us how one unit of token x equals y units of eth
   if (STABLE_COINS.includes(token.id)) {
     priceSoFar = safeDiv(ONE_BD, bundle.ethPriceUSD)
   } else {
@@ -74,8 +95,6 @@ export function findEthPerToken(token: Token): BigDecimal {
           // whitelist token is token1
           let token1 = Token.load(pool.token1)
           // get the derived ETH in pool
-          //get the amount of whitelisted token locked
-          //rn usdc or eth
           let ethLocked = pool.totalValueLockedToken1.times(token1.derivedETH)
           if (ethLocked.gt(largestLiquidityETH) && ethLocked.gt(MINIMUM_ETH_LOCKED)) {
             largestLiquidityETH = ethLocked
