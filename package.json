@@ -6,17 +6,17 @@
   "scripts": {
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "create-real": "graph create ELEKTRIK-GRAPH --node http://3.136.167.120:8020",
-    "create-local": "graph create ELEKTRIK-GRAPH --node http://127.0.0.1:8020",
-    "deploy-local": "graph deploy ELEKTRIK-GRAPH --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
-    "deploy": "graph deploy ELEKTRIK-GRAPH --ipfs http://3.136.167.120:5001 --node http://3.136.167.120:8020 --debug",
+    "create-real": "graph create ELEKTRIK-GRAPH-V2 --node http://3.136.167.120:8020",
+    "create-local": "graph create ELEKTRIK-GRAPH-V2 --node http://127.0.0.1:8020",
+    "deploy-local": "graph deploy ELEKTRIK-GRAPH-V2 --debug --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
+    "deploy": "graph deploy ELEKTRIK-GRAPH-V2 --ipfs http://3.136.167.120:5001 --node http://3.136.167.120:8020 --debug",
     "deploy-dev": "graph deploy sommelier/uniswap-v3 --ipfs http://35.197.14.14:5000/ --node http://35.197.14.14:8020/ --debug",
     "deploy-staging": "graph deploy $THE_GRAPH_GITHUB_USER/$THE_GRAPH_SUBGRAPH_NAME /Uniswap --ipfs https://api.staging.thegraph.com/ipfs/ --node https://api.staging.thegraph.com/deploy/",
     "watch-local": "graph deploy ianlapham/uniswap-v3 --watch --debug --node http://127.0.0.1:8020/ --ipfs http://localhost:5001"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.20.0",
-    "@graphprotocol/graph-ts": "^0.20.0",
+    "@graphprotocol/graph-cli": "^0.20.3",
+    "@graphprotocol/graph-ts": "^0.20.1",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "eslint": "^6.2.2",

@@ -3,9 +3,9 @@ description: Uniswap is a decentralized protocol for automated token exchange on
 repository: https://github.com/Uniswap/uniswap-v3-subgraph
 schema:
   file: ./schema.graphql
-#graft:
-#  base: QmPrb5mvZj3ycUugZgwLWCvK93jfXfhvfjRXrFk4tRmyCX
-#  block: 14292820©r©
+# graft:
+#   base: QmQVvQyTCM5832yHh69PMTHWX7chgM98m1LQ1kMH3H4KoV
+#   block: 66538002
 features:
   - nonFatalErrors
 dataSources:
@@ -18,7 +18,7 @@ dataSources:
       startBlock: 42968673
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/factory.ts
       entities:
@@ -47,7 +47,7 @@ dataSources:
       startBlock: 42968673
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/position-manager.ts
       entities:
@@ -67,7 +67,6 @@ dataSources:
           handler: handleIncreaseLiquidity
         - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
           handler: handleDecreaseLiquidity
-          #this collect is of the non fungible position manager not the direct collect event of the pool contract
         - event: Collect(indexed uint256,address,uint256,uint256)
           handler: handleCollect
         - event: Transfer(indexed address,indexed address,indexed uint256)
@@ -80,7 +79,7 @@ templates:
       abi: Pool
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       file: ./src/mappings/core.ts
       entities:
@@ -94,7 +93,6 @@ templates:
         - name: ERC20
           file: ./abis/ERC20.json
       eventHandlers:
-        #this is called for the pool event initialize
         - event: Initialize(uint160,int24)
           handler: handleInitialize
         - event: Swap(indexed address,indexed address,int256,int256,uint160,uint128,int24)
