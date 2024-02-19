@@ -95,10 +95,8 @@ export function handlePoolCreated(event: PoolCreated): void {
     token1.poolCount = ZERO_BI
     token1.whitelistPools = []
   }
-//FOR SOME REASON THIS IS NOT HAPPENING
+
   // update white listed pools
-  //if either token 0 or token 1 is a whitelist token
-  //add the pool of the whitelisted token and other token to the other tokens list of whitelisted pools
   if (WHITELIST_TOKENS.includes(token0.id)) {
     let newPools = token1.whitelistPools
     newPools.push(pool.id)
